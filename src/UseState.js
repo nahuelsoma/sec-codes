@@ -1,8 +1,8 @@
 import React from "react";
 
-const SECURITY_CODE = "123";
+const SECURITY_CODE = "456";
 
-function UseState({ name }) {
+function UseState({ text }) {
   const [state, setState] = React.useState({
     value: "",
     error: false,
@@ -11,7 +11,8 @@ function UseState({ name }) {
 
   React.useEffect(() => {
     if (!!state.loading) {
-      console.log("Haciendo la validación");
+      console.log("Validating...");
+
       setTimeout(() => {
         if (state.value === SECURITY_CODE) {
           setState({
@@ -27,23 +28,23 @@ function UseState({ name }) {
           });
         }
 
-        console.log("Validación finalizada");
+        console.log("Validation completed");
       }, 2000);
     }
   }, [state.loading]);
 
   return (
     <div>
-      <h2>Eliminar {name}</h2>
+      <h2>Component created with: {text}</h2>
 
-      <p>Por favor, introcude el código de seguridad.</p>
+      <p>Please enter the security code.</p>
 
-      {state.error && !state.loading && <p>Error: El código es incorrecto</p>}
+      {state.error && !state.loading && <p>Error: Incorrect code</p>}
 
-      {state.loading && <p>Cargando...</p>}
+      {state.loading && <p>Loading...</p>}
 
       <input
-        placeholder="Código de seguridad"
+        placeholder="Security code"
         value={state.value}
         onChange={(event) => {
           setState({
@@ -61,8 +62,9 @@ function UseState({ name }) {
           });
         }}
       >
-        Comprobar
+        Validate
       </button>
+      <p className="valid">Valid security code: {SECURITY_CODE}</p>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { Loading } from "./Loading";
 
-const SECURITY_CODE = "123";
+const SECURITY_CODE = "789";
 
 class ClassState extends React.Component {
   constructor(props) {
@@ -26,7 +26,7 @@ class ClassState extends React.Component {
     console.log("componentDidUpdate");
 
     if (!!this.state.loading) {
-      console.log("Haciendo la validación");
+      console.log("Validating...");
 
       setTimeout(() => {
         if (SECURITY_CODE === this.state.value) {
@@ -34,7 +34,7 @@ class ClassState extends React.Component {
         } else {
           this.setState({ error: true, loading: false });
         }
-        console.log("Validación finalizada");
+        console.log("Validation completed");
       }, 2000);
     }
   }
@@ -42,18 +42,18 @@ class ClassState extends React.Component {
   render() {
     return (
       <div>
-        <h2>Eliminar {this.props.name}</h2>
+        <h2>Component created with: {this.props.text}</h2>
 
-        <p>Por favor, introcude el código de seguridad.</p>
+        <p>Please enter the security code.</p>
 
         {this.state.error && !this.state.loading && (
-          <p>Error: El código es incorrecto</p>
+          <p>Error: Incorrect code</p>
         )}
 
         {this.state.loading && <Loading />}
 
         <input
-          placeholder="Código de seguridad"
+          placeholder="Security code"
           value={this.state.value}
           onChange={(event) => {
             this.setState({ value: event.target.value });
@@ -67,8 +67,9 @@ class ClassState extends React.Component {
             })
           }
         >
-          Comprobar
+          Validate
         </button>
+        <p className="valid">Valid security code: {SECURITY_CODE}</p>
       </div>
     );
   }
